@@ -1,10 +1,10 @@
 <?php
 class MySQL{
         var $DB = null;
-        var $DB_HOST = '10.0.0.53';
-        var $DB_USER = 'scheduler';
-        var $DB_UPWD = 'Mf2k13tJVga1CguNbITc';
-        var $DB_NAME = 'scheduler';
+        var $DB_HOST = '<DB HOST>';
+        var $DB_USER = '<DB USER>';
+        var $DB_UPWD = '<DB USER PASSWORD>';
+        var $DB_NAME = '<DB NAME>';
 
         function MySQL(){
                 $this->DB = new PDO('mysql:host=' . $this->DB_HOST . ';dbname=' . $this->DB_NAME . ';charset=utf8', $this->DB_USER, $this->DB_UPWD);
