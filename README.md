@@ -49,11 +49,11 @@ var $DB_NAME = '<DB NAME>';
 ```
 
 # System configuration
-1. CronWeb uses a specific user to create the crontab. User settings could be found in the file <CronWeb Folder>/server/classes/crontab.php. So just create a local user, under Debian :
+CronWeb uses a specific user to create the crontab. User settings could be found in the file <CronWeb Folder>/server/classes/crontab.php. So just create a local user, under Debian :
 ```
 adduser scheduler
 ```
-2. Install the package sudo, under Debian :
+Then install the package sudo, under Debian :
 ```
 apt-get install sudo
 ```
@@ -69,7 +69,7 @@ You should also add here, every commands/scripts/anything you want the web serve
 ```
 www-data        ALL=(scheduler) NOPASSWD: /home/scheduler/scripts/vms/backup_vm.bash
 ```
-3. HTACCESS configuration
+Finally the HTACCESS configuration
 Just create the authfile /var/www/.cronweb :
 ```
 htpasswd -c /var/www/.cronweb the_user_you_want_to_use
