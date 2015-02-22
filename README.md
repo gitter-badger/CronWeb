@@ -6,23 +6,23 @@ Just a webUI for your local cron
 2. Download files (or clone this repository) in the newly created folder
 
 # DB Install
-1. Create the MySQL database
+- Create the MySQL database
 ```
 CREATE DATABASE scheduler
 ```
-2. Create the MySQL databse user
+- Create the MySQL databse user
 ```
 CREATE USER 'scheduler'@'localhost' IDENTIFIED BY 'schedulerpassword';
 ```
-3. Grant privileges for the new user to the new database
+- Grant privileges for the new user to the new database
 ```
 GRANT ALL PRIVILEGES ON scheduler.* TO 'scheduler'@'localhost' WITH GRANT OPTION;
 ```
-4. Connect to the database to create the table
+- Connect to the database to create the table
 ```
 mysql -hDB_HOST -uscheduler -pschedulerpassword scheduler
 ```
-5. Create the following table JOBS
+- Create the following table JOBS
 ```
 CREATE TABLE `JOBS` (
   `JOB_ID` tinyint(4) NOT NULL AUTO_INCREMENT,
