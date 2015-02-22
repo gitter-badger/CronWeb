@@ -77,5 +77,5 @@ htpasswd -c /var/www/.cronweb the_user_you_want_to_use
 If you want to change the location of this file, do not forget to change the authfile path in the .htaccess file !
 
 # Author
-Xavier Beurois [@djazzlab](twitter.com/djazzlab)
-[Visit SGC-Univ.Net blog!](www.sgc-univ.net)
+Xavier Beurois [@djazzlab](https://twitter.com/djazzlab)
+[Visit SGC-Univ.Net blog!](https://www.sgc-univ.net)
