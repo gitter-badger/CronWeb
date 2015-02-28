@@ -5,19 +5,19 @@ class Crontab{
 	 * Location of the crontab executable
 	 * @var string
 	 */
-	var $Crontab = '/usr/bin/crontab';
+	var $Crontab = null;
 	
-        /**
-         * Crontab user for the sudo command
-         * @var string
-         */
-        var $CrontabUser = 'scheduler';
+	/**
+	 * Crontab user for the sudo command
+	 * @var string
+	 */
+	var $CrontabUser = null;
 
 	/**
 	 * Location to save the crontab file.
 	 * @var string
 	 */
-	var $Destination = '/tmp/CronManager';
+	var $Destination = null;
 	
 	/**
 	 * Minute (0 - 59)
@@ -54,10 +54,15 @@ class Crontab{
 	 */
 	var $Jobs = array();
 	
-        /**
-         * Constructor - Do nothing for now
-         */
-	function Crontab(){}
+	/**
+	 * Constructor - Load system settings
+	 */
+	function Crontab(){
+		$XML = simplexml_load_file(dirname(__FILE__) . '/../../includes/system_settings.xml') or die('Error: Cannot create object');
+		$this->Crontab = $XML->CrontabBinary;
+		$this->CrontabUser = $XML->CrontabUser;
+		$this->Destination = $XML->TmpCrontabFile;
+	}
 	
 	/**
 	* Set minute or minutes
@@ -132,13 +137,7 @@ class Crontab{
 	* @return object
 	*/
 	function DoJob($Job){
-		$this->Jobs[] =	$this->Minute.' '.
-				$this->Hour.' '.
-				$this->DayOfMonth.' '.
-				$this->Month.' '.
-				$this->DayOfWeek.' '.
-				$Job;
-		
+		$this->Jobs[] =	$this->Minute . ' ' . $this->Hour . ' ' . $this->DayOfMonth . ' ' . $this->Month . ' ' . $this->DayOfWeek . ' ' . $Job;
 		return $this;
 	}
 	
@@ -157,8 +156,8 @@ class Crontab{
 				$Contents .= "\n";
 			}
 		}
-                $Contents .= implode("\n", $this->Jobs);
-                $Contents .= "\n";
+		$Contents .= implode("\n", $this->Jobs);
+		$Contents .= "\n";
 		
 		if(is_writable($this->Destination) || !file_exists($this->Destination)){
 			exec('sudo -u '.$this->CrontabUser.' '.$this->Crontab.' -r;');
@@ -166,7 +165,6 @@ class Crontab{
 			exec('sudo -u '.$this->CrontabUser.' '.$this->Crontab.' '.$this->Destination.';');
 			return True;
 		}
-		
 		return False;
 	}
 
@@ -180,7 +178,7 @@ class Crontab{
 			exec('sudo -u '.$this->CrontabUser.' '.$this->Crontab.' '.$this->Destination.';');
 			return True;
 		}
-                return False;
+		return False;
 	}
 
 	/**
@@ -196,36 +194,36 @@ class Crontab{
 
 		// Update the crontab
 		if($this->DeleteAllJobs()){
-        		$Contents = '';
-	        	foreach($AllJobs as $Job){
-		        	$Contents .= $Job;
-			        $Contents .= "\n";
-        		}
-		
-	        	if(is_writable($this->Destination) || !file_exists($this->Destination)){
-		        	exec('sudo -u '.$this->CrontabUser.' '.$this->Crontab.' -r;');
-			        file_put_contents($this->Destination, $Contents, LOCK_EX);
-        			exec('sudo -u '.$this->CrontabUser.' '.$this->Crontab.' '.$this->Destination.';');
-	        		return True;
-		        }
-                }
-                return False;
+			$Contents = '';
+			foreach($AllJobs as $Job){
+				$Contents .= $Job;
+				$Contents .= "\n";
+			}
+	
+			if(is_writable($this->Destination) || !file_exists($this->Destination)){
+				exec('sudo -u '.$this->CrontabUser.' '.$this->Crontab.' -r;');
+				file_put_contents($this->Destination, $Contents, LOCK_EX);
+				exec('sudo -u '.$this->CrontabUser.' '.$this->Crontab.' '.$this->Destination.';');
+				return True;
+			}
+		}
+		return False;
 	}
 
-        /**
-        * Get a specific job
-        */
-        function GetJob($ID){
-                $AllJobs = $this->ListJobs();
-                foreach($AllJobs as $Key => $Job){
-                        if($Key == $ID) {
-                                return $Job;
-                        }
-                }
-        }
+	/**
+	* Retrieves a specific job
+	*/
+	function GetJob($ID){
+		$AllJobs = $this->ListJobs();
+		foreach($AllJobs as $Key => $Job){
+			if($Key == $ID){
+				return $Job;
+			}
+		}
+	}
 	
 	/**
-	* List current cron jobs
+	* List current crontab jobs
 	* @return string
 	*/
 	function ListJobs(){
@@ -233,5 +231,4 @@ class Crontab{
 		return $Output;
 	}
 }
-
 ?>

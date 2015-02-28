@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DBSettings>
+	<Host><![CDATA[localhost]]></Host>
+	<User><![CDATA[freyr]]></User>
+	<Password><![CDATA[freyr]]></Password>
+	<DBName><![CDATA[scheduler]]></DBName>
+</DBSettings>

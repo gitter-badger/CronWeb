@@ -1,9 +1,12 @@
 # CronWeb
 Just a webUI for your local cron
 
-# Install
+# Install/Requirements
 1. Create a directory under your document root folder (ex: /var/www/cronweb)
 2. Download files (or clone this repository) in the newly created folder
+3. The CronWeb application needs some specific apache configuration : mod_rewrite, php5 module
+4. Your virtualhost should be configured with "AllowOverride AuthConfig FileInfo Limit" in your "<Directory /var/www/CronWeb/>" node
+5. The application works under PHP 5.1 min (tested under PHP 5.4.4).
 
 # DB Install
 - Create the MySQL database
@@ -39,17 +42,32 @@ CREATE TABLE `JOBS` (
 ```
 
 # DB configuration
-Edit the file <CronWeb Folder>/server/classes/mysql.php
-At the beginning of the file, juste change variables values with your MySQL host and user connection settings :
+Edit the file <CronWeb Folder>/includes/db_settings.xml
+Just change values with your MySQL host and user connection settings :
 ```
-var $DB_HOST = '<DB HOST>';
-var $DB_USER = '<DB USER>';
-var $DB_UPWD = '<DB USER PASSWORD>';
-var $DB_NAME = '<DB NAME>';
+<?xml version="1.0" encoding="UTF-8"?>
+<DBSettings>
+	<Host><![CDATA[localhost]]></Host>
+	<User><![CDATA[freyr]]></User>
+	<Password><![CDATA[freyr]]></Password>
+	<DBName><![CDATA[scheduler]]></DBName>
+</DBSettings>
 ```
 
 # System configuration
-CronWeb uses a specific user to create the crontab. User settings could be found in the file <CronWeb Folder>/server/classes/crontab.php. So just create a local user, under Debian :
+CronWeb uses a specific user to create the crontab. User settings could be found in the file <CronWeb Folder>/includes/system_settings.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<SystemSettings>
+	<!-- This is the result of the which command ($ which crontab) -->
+	<CrontabBinary><![CDATA[/usr/bin/crontab]]></CrontabBinary>
+	<!-- The local user who performs system commands -->
+	<CrontabUser><![CDATA[scheduler]]></CrontabUser>
+	<!-- This is need to build the user crontab file -->
+	<TmpCrontabFile><![CDATA[/tmp/CronManager]]></TmpCrontabFile>
+</SystemSettings>
+```
+Just create a local user, under Debian :
 ```
 adduser scheduler
 ```
@@ -77,5 +95,6 @@ htpasswd -c /var/www/.cronweb the_user_you_want_to_use
 If you want to change the location of this file, do not forget to change the authfile path in the .htaccess file !
 
 # Author
-Xavier Beurois [@djazzlab](https://twitter.com/djazzlab)
-[Visit SGC-Univ.Net blog!](https://www.sgc-univ.net)
+Xavier Beurois
+- Twitter : [@djazzlab](https://twitter.com/djazzlab)
+- Blog : [Visit SGC-Univ.Net blog!](https://www.sgc-univ.net)

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SystemSettings>
+	<!-- This is the result of the which command ($ which crontab) -->
+	<CrontabBinary><![CDATA[/usr/bin/crontab]]></CrontabBinary>
+	<!-- The local user who performs system commands -->
+	<CrontabUser><![CDATA[scheduler]]></CrontabUser>
+	<!-- This is need to build the user crontab file -->
+	<TmpCrontabFile><![CDATA[/tmp/CronManager]]></TmpCrontabFile>
+</SystemSettings>
