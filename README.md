@@ -25,7 +25,7 @@ GRANT ALL PRIVILEGES ON scheduler.* TO 'scheduler'@'localhost' WITH GRANT OPTION
 ```
 mysql -hDB_HOST -uscheduler -pschedulerpassword scheduler
 ```
-- Create the following table JOBS
+- Create the following JOBS table
 ```
 CREATE TABLE `JOBS` (
   `JOB_ID` tinyint(4) NOT NULL AUTO_INCREMENT,
@@ -38,8 +38,22 @@ CREATE TABLE `JOBS` (
   `JOB_CMD` text NOT NULL,
   `JOB_IS_ENABLED` tinyint(1) NOT NULL,
   PRIMARY KEY (`JOB_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 ```
+- CREATE the following SETTINGS table
+```
+CREATE TABLE `SETTINGS` (
+  `SETTING_ID` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `SETTING_KEY` varchar(100) NOT NULL,
+  `SETTING_VALUE` varchar(255) NOT NULL,
+  PRIMARY KEY (`SETTING_ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+```
+And the following default settings values
+```
+INSERT INTO SETTINGS (SETTING_KEY, SETTING_VALUE) VALUES ("active_refresh_time", "30");
+```
+==> I'm working on an install script ;-)
 
 # DB configuration
 Edit the file <CronWeb Folder>/includes/db_settings.xml

@@ -162,6 +162,16 @@ class MySQL{
 		return False;
 	}
 	
+	/**
+	 * GetSettings
+	 * @Desc : This method retrieves all settings from the table SETTINGS
+	 * @Return : Associated array, array columns are the database table columns
+	 */
+	public function GetSettings(){
+		$Stmt = $this->DB->query('SELECT SETTING_KEY, SETTING_VALUE FROM SETTINGS ORDER BY SETTING_ID');
+		return $Stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
 	//============================================= PRIVATE METHODS =============================================//
 	/**
 	 * LoadMySQLSettings
