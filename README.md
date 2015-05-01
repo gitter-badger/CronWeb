@@ -5,7 +5,7 @@ Just a webUI for your local cron
 1. Create a directory under your document root folder (ex: /var/www/cronweb)
 2. Download files (or clone this repository) in the newly created folder
 3. The CronWeb application needs some specific apache configuration : mod_rewrite, php5 module
-4. Your virtualhost should be configured with "AllowOverride AuthConfig FileInfo Limit" in your "<Directory /var/www/CronWeb/>" node
+4. Your virtualhost should be configured with "AllowOverride AuthConfig FileInfo Limit" in your "&lt;Directory /var/www/CronWeb/&gt;" node
 5. The application works under PHP 5.1 min (tested under PHP 5.4.4).
 
 # DB Install
