@@ -9,7 +9,16 @@ Just a webUI for your local cron
 5. The application works under PHP 5.1 min (tested under PHP 5.4.4).
 
 # DB Install
-Just run the SQL script installer in the <i>install</i> folder of the application.
+If you want to customize database name, username, user password, then edit the SQL script <strong>db.sql</strong> in the <strong>install</strong> folder of the application :
+```
+CREATE DATABASE scheduler;
+CREATE USER 'scheduler'@'localhost' IDENTIFIED BY 'scheduler';
+GRANT ALL PRIVILEGES ON scheduler.* TO 'scheduler'@'localhost' WITH GRANT OPTION;
+use scheduler;
+```
+Please, note the changes you made !! You will need them below in the DB configuration part.
+
+Just run the SQL script installer in the application <strong>install</strong> folder.
 <br/>
 This should do the job :
 ```
@@ -32,9 +41,14 @@ Just change values with your MySQL host and user connection settings :
 	<DBName><![CDATA[scheduler]]></DBName>
 </DBSettings>
 ```
+These settings should be the same as those you wrote earlier in the database SQL script installer.
 
 # System configuration
-CronWeb uses a specific user to create the crontab. User settings could be found in the file <CronWeb Folder>/includes/system_settings.xml
+CronWeb uses a specific user to create the crontab. So just create a local user, under Debian :
+```
+adduser scheduler
+```
+User settings could be found in the file <CronWeb Folder>/includes/system_settings.xml
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <SystemSettings>
@@ -42,13 +56,9 @@ CronWeb uses a specific user to create the crontab. User settings could be found
 	<CrontabBinary><![CDATA[/usr/bin/crontab]]></CrontabBinary>
 	<!-- The local user who performs system commands -->
 	<CrontabUser><![CDATA[scheduler]]></CrontabUser>
-	<!-- This is need to build the user crontab file -->
+	<!-- This is needed to build the user crontab file -->
 	<TmpCrontabFile><![CDATA[/tmp/CronManager]]></TmpCrontabFile>
 </SystemSettings>
-```
-Just create a local user, under Debian :
-```
-adduser scheduler
 ```
 Then install the package sudo, under Debian :
 ```

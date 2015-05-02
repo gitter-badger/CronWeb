@@ -8,6 +8,10 @@ GRANT ALL PRIVILEGES ON scheduler.* TO 'scheduler'@'localhost' WITH GRANT OPTION
 -- Use newly created database
 use scheduler;
 
+-------------------------------------------
+-- DON'T CHANGE ANYTHING BELOW THIS LINE --
+-------------------------------------------
+
 -- Create JOBS table
 CREATE TABLE `JOBS` (
   	`JOB_ID` tinyint(4) NOT NULL AUTO_INCREMENT,

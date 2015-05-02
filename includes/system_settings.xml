@@ -4,6 +4,6 @@
 	<CrontabBinary><![CDATA[/usr/bin/crontab]]></CrontabBinary>
 	<!-- The local user who performs system commands -->
 	<CrontabUser><![CDATA[scheduler]]></CrontabUser>
-	<!-- This is need to build the user crontab file -->
+	<!-- This is needed to build the user crontab file -->
 	<TmpCrontabFile><![CDATA[/tmp/CronManager]]></TmpCrontabFile>
 </SystemSettings>
