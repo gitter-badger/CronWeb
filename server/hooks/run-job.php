@@ -18,7 +18,7 @@
                 $JobSys[5] = $Tmp;
 
                 if(count(array_diff($JobBDD, $JobSys)) == 0){
-                        print(json_encode(Array('Error' => False, 'Output' => shell_exec('sudo -u scheduler '.$Enabled_BDD[$_POST['JobPos']]['JOB_CMD']))));
+                        print(json_encode(Array('Error' => False, 'Output' => shell_exec('sudo -u ' . $Cron->GetCrontabUser() . ' ' . $Enabled_BDD[$_POST['JobPos']]['JOB_CMD']))));
                 }else{
                         print(json_encode(Array('Error' => True)));
                 }

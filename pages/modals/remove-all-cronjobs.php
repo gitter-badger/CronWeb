@@ -4,7 +4,7 @@
 </div>
 <div class="modal-body">
         <p>Are you sure you want to completely remove all cronjobs ?</p>
-        <p>The currently enabled cronjobs will be removed too.</p>
+        <p><strong>The currently enabled cronjobs will be removed too.</strong></p>
 </div>
 <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

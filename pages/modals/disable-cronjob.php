@@ -10,12 +10,12 @@
         <button type="button" class="btn btn-danger" id="DisableBtn" data-loading-text="Disabling...">Disable</button>
 </div>
 
-<?php if(isset($_GET['JobPos']) && is_numeric($_GET['JobPos'])): ?>
+<?php if(isset($Dyn_JobPos) && is_numeric($Dyn_JobPos)): ?>
 <script type="text/javascript">
         $(document).ready(function(){
                 $('#DisableBtn').bind('click', function(){
                         $(this).button('loading');
-                        $.post('server/hooks/disable-cronjob.php', {'JobPos':<?php print($_GET['JobPos']); ?>},
+                        $.post('server/hooks/disable-cronjob.php', {'JobPos':<?php print($Dyn_JobPos); ?>},
                                 function(Data){
                                         if(!Data.Error){
                                                 GetActiveCronjobs();

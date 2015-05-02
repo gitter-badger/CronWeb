@@ -10,10 +10,10 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 </div>
 
-<?php if(isset($_GET['JobID']) && is_numeric($_GET['JobID'])): ?>
+<?php if(isset($Dyn_JobID) && is_numeric($Dyn_JobID)): ?>
 <script type="text/javascript">
         $(document).ready(function(){
-                $.post('server/hooks/get-cronjob-cmd-details.php', {'JobID':<?php print($_GET['JobID']); ?>},
+                $.post('server/hooks/get-cronjob-cmd-details.php', {'JobID':<?php print($Dyn_JobID); ?>},
                         function(Data){
                                 if(!Data.Error){
                                         $('.modal-body .job-name pre').append(Data.JobName);

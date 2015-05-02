@@ -14,7 +14,7 @@ function OnEnableCronjobClick(JobID){
 	$.post('server/hooks/enable-cronjob.php', {'JobID':JobID},
 		function(Data){
 			if(!Data.Error){
-				window.location.replace('/all-cronjobs.php');
+				window.location.replace('all-cronjobs.php');
 			}else{
 				alert('An error occurred while enabling the cronjob !');
 			}
@@ -63,7 +63,7 @@ function OnSaveEditButtonClick(){
 			$.post('server/hooks/edit-cronjob.php', {'JobID':JobID, 'Minute':Minute, 'Hour':Hour, 'DayWeek':DayWeek, 'DayMonth':DayMonth, 'Month':Month, 'Name':Name, 'Command':Command},
 				function(Data){
 					if(!Data.Error){
-						window.location.replace('/all-cronjobs.php');
+						window.location.replace('all-cronjobs.php');
 					}
 				},
 				'json'
@@ -167,8 +167,8 @@ function GetActiveCronjobs(){
 				}
 
 				Items += '<div class="btn-group">';
-				Items += '<a href="pages/get-history.php?JobPos=' + Key + '" data-toggle="modal" data-target="#HistoryModal" class="btn btn-info btn-xs" data-placement="top" title="View History"><span class="glyphicon glyphicon-th-list"></a>';
-				Items += '<a href="pages/disable-cronjob.php?JobPos=' + Key + '" data-toggle="modal" data-target="#ConfirmModal" class="btn btn-warning btn-xs" data-placement="top" title="Disable Cronjob"><span class="glyphicon glyphicon-remove"></span></a>';
+				Items += '<a href="modals/get-history.php@JobPos=' + Key + '" data-toggle="modal" data-target="#HistoryModal" class="btn btn-info btn-xs" data-placement="top" title="View History"><span class="glyphicon glyphicon-th-list"></a>';
+				Items += '<a href="modals/disable-cronjob.php@JobPos=' + Key + '" data-toggle="modal" data-target="#ConfirmModal" class="btn btn-warning btn-xs" data-placement="top" title="Disable Cronjob"><span class="glyphicon glyphicon-remove"></span></a>';
 				Items += '</div></td>';
 				Items += '</tr>';
 			});
@@ -210,10 +210,10 @@ function GetAllCronjobs(){
 				Items += '<td style="text-align:right"><div class="btn-group">';
 
 				if(Val.JOB_IS_ENABLED == 0){
-					Items += '<a href="pages/cronjob-cmd-details.php?JobID=' + Val.JOB_ID + '" data-toggle="modal" data-target="#CmdDetailsModal" class="btn btn-info btn-xs" data-placement="top" title="Command details"><span class="glyphicon glyphicon-search"></a>';
+					Items += '<a href="modals/cronjob-cmd-details.php@JobID=' + Val.JOB_ID + '" data-toggle="modal" data-target="#CmdDetailsModal" class="btn btn-info btn-xs" data-placement="top" title="Command details"><span class="glyphicon glyphicon-search"></a>';
 					Items += '<a href="#" class="btn btn-success btn-xs" data-placement="top" title="Enable Cronjob" onclick="OnEnableCronjobClick(' + Val.JOB_ID + ')"><span class="glyphicon glyphicon-ok"></a>';
-					Items += '<a href="edit-cronjob.php/JobID=' + Val.JOB_ID + '" class="btn btn-primary btn-xs" data-placement="top" title="Edit Cronjob"><span class="glyphicon glyphicon-pencil"></a>';
-					Items += '<a href="pages/remove-cronjob.php?JobID=' + Val.JOB_ID + '" data-toggle="modal" data-target="#ConfirmModal" class="btn btn-warning btn-xs" data-placement="top" title="Remove Cronjob"><span class="glyphicon glyphicon-remove"></a>';
+					Items += '<a href="edit-cronjob.php@JobID=' + Val.JOB_ID + '" class="btn btn-primary btn-xs" data-placement="top" title="Edit Cronjob"><span class="glyphicon glyphicon-pencil"></a>';
+					Items += '<a href="modals/remove-cronjob.php@JobID=' + Val.JOB_ID + '" data-toggle="modal" data-target="#ConfirmModal" class="btn btn-warning btn-xs" data-placement="top" title="Remove Cronjob"><span class="glyphicon glyphicon-remove"></a>';
 				}else{
 					Items += '<i style="font-size:8pt">Cronjob is enabled</i>';
 				}

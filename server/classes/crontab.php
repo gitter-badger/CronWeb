@@ -64,6 +64,10 @@ class Crontab{
 		$this->Destination = $XML->TmpCrontabFile;
 	}
 	
+	function GetCrontabUser(){
+		return $this->CrontabUser;
+	}
+	
 	/**
 	* Set minute or minutes
 	* @param string $Minute required

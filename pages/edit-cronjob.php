@@ -44,8 +44,8 @@
 </div>
 <script type="text/javascript">
         $(document).ready(function(){
-                $('#save-edit-btn').bind('click', OnSaveEditButtonClick);
                 <?php if(is_numeric($Dyn_JobID)): ?>
+                $('#save-edit-btn').bind('click', OnSaveEditButtonClick);
                 GetJobToEdit(<?php print($Dyn_JobID); ?>);
                 <?php endif; ?>
         });
