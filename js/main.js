@@ -245,3 +245,51 @@ function GetSettings(){
 		}
 	});
 }
+
+function GetSetting(SettingKey){
+	var SettingValue;
+	
+	$.ajax({
+        url: 'server/hooks/admin-get-setting.php',
+        method: 'POST',
+		dataType: 'json',
+		data:{'SettingKey':SettingKey},
+        async: false,
+        cache: false,
+        timeout: 30000,
+        error: function(){
+            alert('An error occurred while retrieving setting value (' + SettingKey + ') !');
+        },
+        success: function(Data){
+            if(!Data.Error){
+				SettingValue = Data.SettingValue;
+			}else{
+				alert('An error occurred while retrieving setting value (' + SettingKey + ') !');
+			}
+        }
+    });
+	
+	return SettingValue;
+}
+
+function SaveSettings(ActiveRefreshTime){
+	$('#ajax-indicator').show();
+	$.ajax({
+        url: 'server/hooks/admin-save-settings.php',
+        method: 'POST',
+		dataType: 'json',
+		data:{'ActiveRefreshTime':ActiveRefreshTime},
+        async: false,
+        cache: false,
+        timeout: 30000,
+        error: function(){
+            alert('An error occurred while saving settings !');
+        },
+        success: function(Data){
+            if(Data.Error){
+				alert('An error occurred while saving settings !');
+			}
+        }
+    });
+	$('#ajax-indicator').hide();
+}

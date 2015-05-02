@@ -172,6 +172,45 @@ class MySQL{
 		return $Stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 	
+	/**
+	 * GetSetting
+	 * @Desc : This method retrieves a specific setting from the table SETTINGS
+	 * @Return : Associated array, array columns are the database table columns
+	 */
+	public function GetSetting($SettingKey){
+		$Stmt = $this->DB->prepare('SELECT SETTING_VALUE FROM SETTINGS WHERE SETTING_KEY = ? LIMIT 1');
+		$Stmt->execute(Array($SettingKey));
+		return $Stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
+	/**
+	 * SaveSettings
+	 * @Desc : This method saves all settings into the table SETTINGS
+	 * @Parameter $Settings : Associated array of settings (each key are the SETTING_KEY)
+	 * @Return : Associated array, array columns are the database table columns
+	 */
+	public function SaveSettings($Settings){
+		$Error = false;
+		
+		foreach ($Settings as $SettingKey => $SettingValue) {
+			if (count($this->GetSetting($SettingKey)) == 1) {
+				$Stmt = $this->DB->prepare('UPDATE SETTINGS SET SETTING_VALUE = ? WHERE SETTING_KEY = ?');
+				if(!$Stmt->execute(Array($SettingValue, $SettingKey))){
+					$Error = true;
+				}
+			} else {
+				$Stmt = $this->DB->prepare('INSERT INTO SETTINGS (SETTING_KEY, SETTING_VALUE) VALUES (?, ?)');
+				$Stmt->execute(Array($SettingValue, $SettingKey));
+		
+				if($this->DB->lastInsertId() <= 0){
+					$Error = true;
+				}
+			}
+		}
+		
+		return $Error;
+	}
+	
 	//============================================= PRIVATE METHODS =============================================//
 	/**
 	 * LoadMySQLSettings

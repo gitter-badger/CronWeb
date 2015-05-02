@@ -1,15 +1,15 @@
 <?php
-        $Error = False;
+    $Error = False;
 	if(!isset($_POST['Minute']) || $_POST['Minute'] == '') $Error = True;
 	if(!isset($_POST['Hour']) || $_POST['Hour'] == '') $Error = True;
 	if(!isset($_POST['Month']) || $_POST['Month'] == '') $Error = True;
 	if(!isset($_POST['DayWeek']) || $_POST['DayWeek'] == '') $Error = True;
 	if(!isset($_POST['DayMonth']) || $_POST['DayMonth'] == '') $Error = True;
-        if(!isset($_POST['Name']) || $_POST['Name'] == '') $Error = True;
+    if(!isset($_POST['Name']) || $_POST['Name'] == '') $Error = True;
 	if(!isset($_POST['Command']) || $_POST['Command'] == '') $Error = True;
-        if(!isset($_POST['DirectlyEnabled']) || $_POST['DirectlyEnabled'] == '') $Error = True;
+    if(!isset($_POST['DirectlyEnabled']) || $_POST['DirectlyEnabled'] == '') $Error = True;
 
-	if(!$Error) {
+	if(!$Error){
                 require_once('../classes/mysql.php');
                 $MySQL = new MySQL();
                 $Result = Array('Inserted' => $MySQL->AddNewJob($_POST['Minute'], $_POST['Hour'], $_POST['DayMonth'], $_POST['Month'], $_POST['DayWeek'], $_POST['Name'], $_POST['Command'], $_POST['DirectlyEnabled']));

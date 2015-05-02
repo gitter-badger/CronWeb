@@ -1,5 +1,5 @@
 <div id="active">
-        <h3>Active Cronjobs <span class="muted">Refresh every 30s</span><div id="ajax-indicator" class="pull-right"><img src="img/loader.gif" valign="middle" />&nbsp;Loading ...</div></h3>
+        <h3>Active Cronjobs <span class="muted">Refresh every XXs</span><div id="ajax-indicator" class="pull-right"><img src="img/loader.gif" valign="middle" />&nbsp;Loading ...</div></h3>
         <p>
                 <a href="pages/disable-all-cronjobs.php" data-toggle="modal" data-target="#DisableAllModal" class="btn btn-danger disable-all-btn">Disable All Jobs</a>
         </p>
@@ -40,7 +40,9 @@
 </div>
 <script type="text/javascript">
         $(document).ready(function() {
-                function GetActiveCronjobsAndDisplayTime(){
+                var RefreshTime = GetSetting("active_refresh_time");
+            
+                function GetActiveCronjobsAndDisplayTime(RefreshTime){
                         GetActiveCronjobs();
 
                         var RefreshDate = new Date();
@@ -49,10 +51,10 @@
                         var Seconds = RefreshDate.getSeconds() < 10 ? '0' + RefreshDate.getSeconds() : RefreshDate.getSeconds();
                         var FormatedDate = Hours + ':' + Minutes + ':' + Seconds;
 
-                        $('#active span.muted').text('Refresh every 30s (' + FormatedDate + ')');
+                        $('#active span.muted').text('Refresh every ' + RefreshTime + 's (' + FormatedDate + ')');
                 }
 
-                setInterval(function(){ GetActiveCronjobsAndDisplayTime(); }, 30000);
-                GetActiveCronjobsAndDisplayTime();
+                setInterval(function(){ GetActiveCronjobsAndDisplayTime(RefreshTime); }, RefreshTime * 1000);
+                GetActiveCronjobsAndDisplayTime(RefreshTime);
         });
 </script>

@@ -12,7 +12,7 @@
 				<div class="row">
 					<div class="pull-right">
 						<div class="col-md-6" style="padding-top:1em;padding-left:0;">
-							<a id="save-btn" class="btn btn-large btn-success">Save Settings</a>
+							<a id="save-btn-top" class="btn btn-large btn-success">Save Settings</a>
 						</div>
 					</div>
 				</div>
@@ -22,13 +22,13 @@
 							<label for="active-refresh-time">Active CronJobs - Refresh page every</label>
 						</h5>
 						<input type="text" id="active-refresh-time" class="form-control" aria-describedby="active-refresh-time-help">
-						<span id="active-refresh-time-help" class="help-block">Enter a number of seconds. The value should be numeric !</span>
+						<span id="active-refresh-time-help" class="help-block">Enter a number of seconds (1-99). The value should be numeric !</span>
 					</div>
 				</form>
 				<div class="row">
 					<div class="pull-right">
 						<div class="col-md-6" style="padding-top:1em;padding-left:0;">
-							<a id="save-btn" class="btn btn-large btn-success">Save Settings</a>
+							<a id="save-btn-bot" class="btn btn-large btn-success">Save Settings</a>
 						</div>
 					</div>
 				</div>
@@ -63,5 +63,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		GetSettings();
+		
+		$('#save-btn-top, #save-btn-bot').bind('click', function(){
+			SaveSettings($('#active-refresh-time').val());
+		});
 	});
 </script>
