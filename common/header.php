@@ -27,6 +27,6 @@
 						<li class="nav-all<?php print(($_GET['p'] == 'all-cronjobs.php')?' active':''); ?>"><a href="all-cronjobs.php">All Cronjobs</a></li>
 						<li class="nav-admin<?php print(($_GET['p'] == 'admin.php')?' active':''); ?>"><a href="admin.php">Admin</a></li>
 					</ul>
-					<h1><a href="home.php">CronWeb v2 <span class="muted">by SGC-Univ.Net</span></a></h1>
+					<h1><a href="home.php">CronWeb <span class="muted">by SGC-Univ.Net</span></a></h1>
 				</div>
 				<hr>
