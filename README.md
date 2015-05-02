@@ -53,7 +53,7 @@ And the following default settings values
 ```
 INSERT INTO SETTINGS (SETTING_KEY, SETTING_VALUE) VALUES ("active_refresh_time", "30");
 ```
-==> I'm working on an install script ;-)
+==> A non-tested script exists in the install folder. I'm working on, this should be ok before the end of the day (Saturday, 2015 May 2nd)
 
 <strong>Note : The application uses PHP PDO driver to build and execute SQL requests. PHP PDO driver is included with the php5-mysql module.</strong>
 
