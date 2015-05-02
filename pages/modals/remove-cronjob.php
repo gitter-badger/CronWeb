@@ -10,12 +10,12 @@
         <button type="button" class="btn btn-primary" id="RemoveBtn" data-loading-text="Removing...">Remove</button>
 </div>
 
-<?php if(isset($_GET['JobID']) && is_numeric($_GET['JobID'])): ?>
+<?php if(isset($Dyn_JobID) && is_numeric($Dyn_JobID)): ?>
 <script type="text/javascript">
         $(document).ready(function(){
                 $('#RemoveBtn').bind('click', function(){
                         $(this).button('loading');
-                        $.post('server/hooks/remove-cronjob.php', {'JobID':<?php print($_GET['JobID']); ?>},
+                        $.post('server/hooks/remove-cronjob.php', {'JobID':<?php print($Dyn_JobID); ?>},
                                 function(Data){
                                         if(!Data.Error){
                                                 GetAllCronjobs();

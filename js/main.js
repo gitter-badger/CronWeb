@@ -91,7 +91,7 @@ function OnSaveNewButtonClick(event){
 			$.post('server/hooks/add-new-cronjob.php', {'Minute':Minute, 'Hour':Hour, 'DayWeek':DayWeek, 'DayMonth':DayMonth, 'Month':Month, 'Name':Name, 'Command':Command, 'DirectlyEnabled':DirectlyEnabled},
 				function(Data){
 					if(Data.Inserted){
-						window.location.replace('/all-cronjobs.php');
+						window.location.replace('all-cronjobs.php');
 					}else{
 						alert('An error occurred during the creation process ...');
 					}
