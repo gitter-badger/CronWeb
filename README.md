@@ -9,51 +9,14 @@ Just a webUI for your local cron
 5. The application works under PHP 5.1 min (tested under PHP 5.4.4).
 
 # DB Install
-- Create the MySQL database
+Just run the SQL script installer in the <i>install</i> folder of the application.
+<br/>
+This should do the job :
 ```
-CREATE DATABASE scheduler
+cd <ApplicationFolder>/install
+mysql -uroot -prootpassword < db.sql
 ```
-- Create the MySQL databse user
-```
-CREATE USER 'scheduler'@'localhost' IDENTIFIED BY 'schedulerpassword';
-```
-- Grant privileges for the new user to the new database
-```
-GRANT ALL PRIVILEGES ON scheduler.* TO 'scheduler'@'localhost' WITH GRANT OPTION;
-```
-- Connect to the database to create the table
-```
-mysql -hDB_HOST -uscheduler -pschedulerpassword scheduler
-```
-- Create the following JOBS table
-```
-CREATE TABLE `JOBS` (
-  `JOB_ID` tinyint(4) NOT NULL AUTO_INCREMENT,
-  `JOB_NAME` varchar(100) NOT NULL,
-  `JOB_MIN` varchar(50) NOT NULL,
-  `JOB_HOUR` varchar(50) NOT NULL,
-  `JOB_DOM` varchar(50) NOT NULL,
-  `JOB_MON` varchar(50) NOT NULL,
-  `JOB_DOW` varchar(50) NOT NULL,
-  `JOB_CMD` text NOT NULL,
-  `JOB_IS_ENABLED` tinyint(1) NOT NULL,
-  PRIMARY KEY (`JOB_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-```
-- CREATE the following SETTINGS table
-```
-CREATE TABLE `SETTINGS` (
-  `SETTING_ID` tinyint(4) NOT NULL AUTO_INCREMENT,
-  `SETTING_KEY` varchar(100) NOT NULL,
-  `SETTING_VALUE` varchar(255) NOT NULL,
-  PRIMARY KEY (`SETTING_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-```
-And the following default settings values
-```
-INSERT INTO SETTINGS (SETTING_KEY, SETTING_VALUE) VALUES ("active_refresh_time", "30");
-```
-==> A non-tested script exists in the install folder. I'm working on, this should be ok before the end of the day (Saturday, 2015 May 2nd)
+Feel free to execute this command with your proper user ! You just need to have to permission to create a user and a database, and to make grant requests.
 
 <strong>Note : The application uses PHP PDO driver to build and execute SQL requests. PHP PDO driver is included with the php5-mysql module.</strong>
 

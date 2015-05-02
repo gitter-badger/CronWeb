@@ -1,9 +1,12 @@
 -- Create the database for the application
-CREATE DATABASE scheduler
+CREATE DATABASE scheduler;
 -- Create the database user which will be used by the application
-CREATE USER 'scheduler'@'localhost' IDENTIFIED BY 'schedulerpassword';
+CREATE USER 'scheduler'@'localhost' IDENTIFIED BY 'scheduler';
 -- Give some privileges to the new user
 GRANT ALL PRIVILEGES ON scheduler.* TO 'scheduler'@'localhost' WITH GRANT OPTION;
+
+-- Use newly created database
+use scheduler;
 
 -- Create JOBS table
 CREATE TABLE `JOBS` (
