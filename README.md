@@ -16,7 +16,7 @@ This should do the job :
 cd <ApplicationFolder>/install
 mysql -uroot -prootpassword < db.sql
 ```
-Feel free to execute this command with your proper user ! You just need to have to permission to create a user and a database, and to make grant requests.
+Feel free to execute this command with your proper user ! You just need to have the permission to create a user and a database, and to make grant requests.
 
 <strong>Note : The application uses PHP PDO driver to build and execute SQL requests. PHP PDO driver is included with the php5-mysql module.</strong>
 
