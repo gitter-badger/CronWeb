@@ -1,5 +1,5 @@
 <div id="#admin">
-	<h3>Admin<div id="ajax-indicator" class="pull-right"><img src="/img/loader.gif" valign="middle" />&nbsp;Loading ...</div></h3>
+	<h3>Admin<div id="ajax-indicator" class="pull-right"><img src="img/loader.gif" valign="middle" />&nbsp;Loading ...</div></h3>
 	<div role="tabpanel">
 		<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>

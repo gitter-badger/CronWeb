@@ -12,7 +12,7 @@
 <?php if(isset($_GET['JobPos']) && is_numeric($_GET['JobPos'])): ?>
 <script type="text/javascript">
         $(document).ready(function(){
-                $.post('/server/hooks/get-history-cronjob.php', {'JobPos':<?php print($_GET['JobPos']); ?>},
+                $.post('server/hooks/get-history-cronjob.php', {'JobPos':<?php print($_GET['JobPos']); ?>},
                         function(Data){
                                 if(!Data.Error){
                                         if(Data.NBContents != 0){

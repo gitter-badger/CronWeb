@@ -15,7 +15,7 @@
         $(document).ready(function(){
                 $('#DisableBtn').bind('click', function(){
                         $(this).button('loading');
-                        $.post('/server/hooks/disable-cronjob.php', {'JobPos':<?php print($_GET['JobPos']); ?>},
+                        $.post('server/hooks/disable-cronjob.php', {'JobPos':<?php print($_GET['JobPos']); ?>},
                                 function(Data){
                                         if(!Data.Error){
                                                 GetActiveCronjobs();

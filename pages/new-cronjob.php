@@ -2,7 +2,7 @@
         <form role="form">
                 <div class="col-md-6" style="text-align:right">
                         <div class="col-md-6" style="text-align:left">
-                                <img src="/img/new-cronjob.gif" />
+                                <img src="img/new-cronjob.gif" />
                         </div>
                         <div class="col-md-6" style="text-align:left">
                                 <div class="form-group">

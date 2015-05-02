@@ -14,7 +14,7 @@
                 $('#DisableAllBtn').bind('click', function(){
                         var DisBtn = $(this);
                         DisBtn.button('loading');
-                        $.getJSON('/server/hooks/disable-all-cronjobs.php', function(Data){
+                        $.getJSON('server/hooks/disable-all-cronjobs.php', function(Data){
                                 if(Data.MySQL && Data.Crontab){
                                         GetActiveCronjobs();
                                         $('#DisableAllModal').modal('hide');

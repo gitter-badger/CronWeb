@@ -1,7 +1,7 @@
 <div id="active">
-        <h3>Active Cronjobs <span class="muted">Refresh every 30s</span><div id="ajax-indicator" class="pull-right"><img src="/img/loader.gif" valign="middle" />&nbsp;Loading ...</div></h3>
+        <h3>Active Cronjobs <span class="muted">Refresh every 30s</span><div id="ajax-indicator" class="pull-right"><img src="img/loader.gif" valign="middle" />&nbsp;Loading ...</div></h3>
         <p>
-                <a href="/pages/disable-all-cronjobs.php" data-toggle="modal" data-target="#DisableAllModal" class="btn btn-danger disable-all-btn">Disable All Jobs</a>
+                <a href="pages/disable-all-cronjobs.php" data-toggle="modal" data-target="#DisableAllModal" class="btn btn-danger disable-all-btn">Disable All Jobs</a>
         </p>
         <table class="table table-striped">
                 <thead>

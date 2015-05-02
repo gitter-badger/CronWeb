@@ -1,8 +1,8 @@
 <div id="#all">
-        <h3>All created Cronjobs<div id="ajax-indicator" class="pull-right"><img src="/img/loader.gif" valign="middle" />&nbsp;Loading ...</div></h3>
+        <h3>All created Cronjobs<div id="ajax-indicator" class="pull-right"><img src="img/loader.gif" valign="middle" />&nbsp;Loading ...</div></h3>
         <p>
-                <a href="/new-cronjob.php" class="btn btn-success">New Cronjob</a>&nbsp;
-                <a href="/pages/remove-all-cronjobs.php" data-toggle="modal" data-target="#RemoveAllModal" class="btn btn-danger">Remove All Cronjobs</a>
+                <a href="new-cronjob.php" class="btn btn-success">New Cronjob</a>&nbsp;
+                <a href="pages/remove-all-cronjobs.php" data-toggle="modal" data-target="#RemoveAllModal" class="btn btn-danger">Remove All Cronjobs</a>
         </p>
         <table class="table table-striped">
                 <thead>

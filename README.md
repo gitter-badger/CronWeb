@@ -55,6 +55,8 @@ INSERT INTO SETTINGS (SETTING_KEY, SETTING_VALUE) VALUES ("active_refresh_time",
 ```
 ==> I'm working on an install script ;-)
 
+<strong>Note : The application uses PHP PDO driver to execute SQL build and execute SQL requests. PHP PDO driver is included with the php5-mysql module.</strong>
+
 # DB configuration
 Edit the file <CronWeb Folder>/includes/db_settings.xml
 Just change values with your MySQL host and user connection settings :
@@ -62,8 +64,8 @@ Just change values with your MySQL host and user connection settings :
 <?xml version="1.0" encoding="UTF-8"?>
 <DBSettings>
 	<Host><![CDATA[localhost]]></Host>
-	<User><![CDATA[freyr]]></User>
-	<Password><![CDATA[freyr]]></Password>
+	<User><![CDATA[scheduler]]></User>
+	<Password><![CDATA[scheduler]]></Password>
 	<DBName><![CDATA[scheduler]]></DBName>
 </DBSettings>
 ```
@@ -107,6 +109,15 @@ Just create the authfile /var/www/.cronweb :
 htpasswd -c /var/www/.cronweb the_user_you_want_to_use
 ```
 If you want to change the location of this file, do not forget to change the authfile path in the .htaccess file !
+If you change the application folder name, or if your document root in your virtualhost is not "cronweb", don't forget to change the <strong>RewriteBase</strong> in the .htaccess file
+```
+RewriteBase /cronweb
+```
+For example, if your document root is the application folder, your RewriteBase will be :
+```
+RewriteBase /
+```
+This is very importante, otherwise none of the application URLs will work.
 
 # Author
 Xavier Beurois

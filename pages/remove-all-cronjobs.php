@@ -15,7 +15,7 @@
                 $('#RemoveAllBtn').bind('click', function(){
                         var DisBtn = $(this);
                         DisBtn.button('loading');
-                        $.getJSON('/server/hooks/remove-all-cronjobs.php', function(Data){
+                        $.getJSON('server/hooks/remove-all-cronjobs.php', function(Data){
                                 if(!Data.Error){
                                         GetAllCronjobs();
                                         $('#RemoveAllModal').modal('hide');

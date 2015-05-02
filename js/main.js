@@ -2,7 +2,7 @@ function OnRunJobClick(JobPos){
 	$('#badge_' + JobPos).removeClass().addClass('badge alert-info').text('RUNNING');
 	$('#run_' + JobPos).attr('disabled', 'disabled');
 
-	$.post('/server/hooks/run-job.php', {'JobPos':JobPos},
+	$.post('server/hooks/run-job.php', {'JobPos':JobPos},
 		function(Data){
 			GetActiveCronjobs();
 		}
@@ -11,7 +11,7 @@ function OnRunJobClick(JobPos){
 
 function OnEnableCronjobClick(JobID){
 	$('#ajax-indicator').show();
-	$.post('/server/hooks/enable-cronjob.php', {'JobID':JobID},
+	$.post('server/hooks/enable-cronjob.php', {'JobID':JobID},
 		function(Data){
 			if(!Data.Error){
 				window.location.replace('/all-cronjobs.php');
@@ -25,7 +25,7 @@ function OnEnableCronjobClick(JobID){
 }
 
 function GetJobToEdit(JobID){
-	$.post('/server/hooks/get-cronjob.php', {'JobID':JobID},
+	$.post('server/hooks/get-cronjob.php', {'JobID':JobID},
 		function(Data){
 			if(!Data.Error){
 				$.each(Data.Item, function(Key, Val){
@@ -60,7 +60,7 @@ function OnSaveEditButtonClick(){
 		alert('All fields of the form are required !');
 	}else{
 		if(Command != '*'){
-			$.post('/server/hooks/edit-cronjob.php', {'JobID':JobID, 'Minute':Minute, 'Hour':Hour, 'DayWeek':DayWeek, 'DayMonth':DayMonth, 'Month':Month, 'Name':Name, 'Command':Command},
+			$.post('server/hooks/edit-cronjob.php', {'JobID':JobID, 'Minute':Minute, 'Hour':Hour, 'DayWeek':DayWeek, 'DayMonth':DayMonth, 'Month':Month, 'Name':Name, 'Command':Command},
 				function(Data){
 					if(!Data.Error){
 						window.location.replace('/all-cronjobs.php');
@@ -88,7 +88,7 @@ function OnSaveNewButtonClick(event){
 		alert('All fields of the form are required !');
 	}else{
 		if(Command != '*'){
-			$.post('/server/hooks/add-new-cronjob.php', {'Minute':Minute, 'Hour':Hour, 'DayWeek':DayWeek, 'DayMonth':DayMonth, 'Month':Month, 'Name':Name, 'Command':Command, 'DirectlyEnabled':DirectlyEnabled},
+			$.post('server/hooks/add-new-cronjob.php', {'Minute':Minute, 'Hour':Hour, 'DayWeek':DayWeek, 'DayMonth':DayMonth, 'Month':Month, 'Name':Name, 'Command':Command, 'DirectlyEnabled':DirectlyEnabled},
 				function(Data){
 					if(Data.Inserted){
 						window.location.replace('/all-cronjobs.php');
@@ -105,7 +105,7 @@ function OnSaveNewButtonClick(event){
 }
 
 function GetInstalledScripts(){
-	$.getJSON('/server/hooks/get-installed-scripts.php', function(Data){
+	$.getJSON('server/hooks/get-installed-scripts.php', function(Data){
 		if(!Data.Error){
 			var Select = $("#add-scripts");
 			$.each(Data.Scripts, function(){
@@ -117,7 +117,7 @@ function GetInstalledScripts(){
 
 function GetActiveCronjobs(){
     $('#ajax-indicator').show();
-	$.getJSON('/server/hooks/get-enabled-cronjobs.php', function(Data){
+	$.getJSON('server/hooks/get-enabled-cronjobs.php', function(Data){
 		var Items = '';
 		if(Data.NBItems != 0){
 			$.each(Data.Items, function(Key, Val){
@@ -167,8 +167,8 @@ function GetActiveCronjobs(){
 				}
 
 				Items += '<div class="btn-group">';
-				Items += '<a href="/pages/get-history.php?JobPos=' + Key + '" data-toggle="modal" data-target="#HistoryModal" class="btn btn-info btn-xs" data-placement="top" title="View History"><span class="glyphicon glyphicon-th-list"></a>';
-				Items += '<a href="/pages/disable-cronjob.php?JobPos=' + Key + '" data-toggle="modal" data-target="#ConfirmModal" class="btn btn-warning btn-xs" data-placement="top" title="Disable Cronjob"><span class="glyphicon glyphicon-remove"></span></a>';
+				Items += '<a href="pages/get-history.php?JobPos=' + Key + '" data-toggle="modal" data-target="#HistoryModal" class="btn btn-info btn-xs" data-placement="top" title="View History"><span class="glyphicon glyphicon-th-list"></a>';
+				Items += '<a href="pages/disable-cronjob.php?JobPos=' + Key + '" data-toggle="modal" data-target="#ConfirmModal" class="btn btn-warning btn-xs" data-placement="top" title="Disable Cronjob"><span class="glyphicon glyphicon-remove"></span></a>';
 				Items += '</div></td>';
 				Items += '</tr>';
 			});
@@ -190,7 +190,7 @@ function GetActiveCronjobs(){
 
 function GetAllCronjobs(){
 	$('#ajax-indicator').show();
-	$.getJSON('/server/hooks/get-all-cronjobs.php', function(Data){
+	$.getJSON('server/hooks/get-all-cronjobs.php', function(Data){
 		var Items = '';
 		if(Data.NBItems != 0){
 			$.each(Data.Items, function(Key, Val){
@@ -210,10 +210,10 @@ function GetAllCronjobs(){
 				Items += '<td style="text-align:right"><div class="btn-group">';
 
 				if(Val.JOB_IS_ENABLED == 0){
-					Items += '<a href="/pages/cronjob-cmd-details.php?JobID=' + Val.JOB_ID + '" data-toggle="modal" data-target="#CmdDetailsModal" class="btn btn-info btn-xs" data-placement="top" title="Command details"><span class="glyphicon glyphicon-search"></a>';
+					Items += '<a href="pages/cronjob-cmd-details.php?JobID=' + Val.JOB_ID + '" data-toggle="modal" data-target="#CmdDetailsModal" class="btn btn-info btn-xs" data-placement="top" title="Command details"><span class="glyphicon glyphicon-search"></a>';
 					Items += '<a href="#" class="btn btn-success btn-xs" data-placement="top" title="Enable Cronjob" onclick="OnEnableCronjobClick(' + Val.JOB_ID + ')"><span class="glyphicon glyphicon-ok"></a>';
-					Items += '<a href="/edit-cronjob.php/JobID=' + Val.JOB_ID + '" class="btn btn-primary btn-xs" data-placement="top" title="Edit Cronjob"><span class="glyphicon glyphicon-pencil"></a>';
-					Items += '<a href="/pages/remove-cronjob.php?JobID=' + Val.JOB_ID + '" data-toggle="modal" data-target="#ConfirmModal" class="btn btn-warning btn-xs" data-placement="top" title="Remove Cronjob"><span class="glyphicon glyphicon-remove"></a>';
+					Items += '<a href="edit-cronjob.php/JobID=' + Val.JOB_ID + '" class="btn btn-primary btn-xs" data-placement="top" title="Edit Cronjob"><span class="glyphicon glyphicon-pencil"></a>';
+					Items += '<a href="pages/remove-cronjob.php?JobID=' + Val.JOB_ID + '" data-toggle="modal" data-target="#ConfirmModal" class="btn btn-warning btn-xs" data-placement="top" title="Remove Cronjob"><span class="glyphicon glyphicon-remove"></a>';
 				}else{
 					Items += '<i style="font-size:8pt">Cronjob is enabled</i>';
 				}
@@ -237,7 +237,7 @@ function GetAllCronjobs(){
 }
 
 function GetSettings(){
-	$.getJSON('/server/hooks/admin-get-settings.php', function(Data){
+	$.getJSON('server/hooks/admin-get-settings.php', function(Data){
 		if(!Data.Error){
 			$('#active-refresh-time').val(Data.active_refresh_time);
 		}else{

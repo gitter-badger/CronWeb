@@ -13,7 +13,7 @@
 <?php if(isset($_GET['JobID']) && is_numeric($_GET['JobID'])): ?>
 <script type="text/javascript">
         $(document).ready(function(){
-                $.post('/server/hooks/get-cronjob-cmd-details.php', {'JobID':<?php print($_GET['JobID']); ?>},
+                $.post('server/hooks/get-cronjob-cmd-details.php', {'JobID':<?php print($_GET['JobID']); ?>},
                         function(Data){
                                 if(!Data.Error){
                                         $('.modal-body .job-name pre').append(Data.JobName);

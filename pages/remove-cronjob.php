@@ -15,7 +15,7 @@
         $(document).ready(function(){
                 $('#RemoveBtn').bind('click', function(){
                         $(this).button('loading');
-                        $.post('/server/hooks/remove-cronjob.php', {'JobID':<?php print($_GET['JobID']); ?>},
+                        $.post('server/hooks/remove-cronjob.php', {'JobID':<?php print($_GET['JobID']); ?>},
                                 function(Data){
                                         if(!Data.Error){
                                                 GetAllCronjobs();
