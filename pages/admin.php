@@ -4,7 +4,7 @@
 		<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
 				<li role="presentation"><a href="#scripts" aria-controls="scripts" role="tab" data-toggle="tab">Scripts</a></li>
-				<li role="presentation"><a href="#users" aria-controls="roles" role="tab" data-toggle="tab">Roles</a></li>
+				<!-- li role="presentation"><a href="#roles" aria-controls="roles" role="tab" data-toggle="tab">Roles</a></li -->
 				<li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
 		</ul>
 		<div class="tab-content">
@@ -34,11 +34,31 @@
 				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="scripts">
-				<p>Under construction</p>
+				<div class="row">
+					<div class="pull-right">
+						<div class="col-md-6" style="padding-top:1em;padding-left:0;">
+							<a id="upl-btn-top" class="btn btn-large btn-info">Upload Script</a>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped">
+			        <thead>
+			            <tr>
+			                <th width="5%">Minute</th>
+			                <th width="5%">Hour</th>
+			                <th width="10%">Day of Month</th>
+			                <th width="5%">Month</th>
+			                <th width="10%">Day of Week</th>
+			                <th width="40%">Command</th>
+			                <th width="25%"></th>
+			            </tr>
+			        </thead>
+			        <tbody class="scripts-list"></tbody>
+			    </table>
 			</div>
-			<div role="tabpanel" class="tab-pane" id="roles">
+			<!-- div role="tabpanel" class="tab-pane" id="roles">
 				<p>Under construction</p>
-			</div>
+			</div -->
 			<div role="tabpanel" class="tab-pane" id="users">
 				<p>Under construction</p>
 			</div>

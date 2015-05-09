@@ -33,7 +33,7 @@
                         </div>
                         <label for="add-command" style="padding-top:.5em;">
                                 <h4>Command to Execute (*)</h4>
-                                <p>Enter either a valid CLI command to run on the system with the current users permissions, or reference a external script for execution.</p>
+                                <p>Enter either a valid CLI command to run on the system with the current users permissions, or reference an external script for execution.</p>
                         </label>
                         <textarea id="add-command" class="form-control add-command" style="width:100%;" rows="5" placeholder="/path/to/my/script.py"></textarea>
                         <div class="col-md-6" style="padding-top:1em;padding-left:0;">

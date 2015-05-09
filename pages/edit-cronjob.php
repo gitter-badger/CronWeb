@@ -28,7 +28,7 @@
                         <input class="form-control edit-name" id="edit-name" type="text" placeholder="My new cronjob">
                         <label for="edit-command">
                                 <h4>Command to Execute (*)</h4>
-                                <p>Enter either a valid CLI command to run on the system with the current users permissions, or reference a external script for execution.</p>
+                                <p>Enter either a valid CLI command to run on the system with the current users permissions, or reference an external script for execution.</p>
                         </label>
                         <textarea class="form-control edit-command" id="edit-command" style="width:100%;" rows="5" placeholder="/path/to/my/script.py"></textarea>
                         <div class="row" style="padding-top:1em;">
