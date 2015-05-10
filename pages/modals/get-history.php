@@ -9,10 +9,10 @@
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 </div>
 
-<?php if(isset($_GET['JobPos']) && is_numeric($_GET['JobPos'])): ?>
+<?php if(isset($Dyn_JobPos) && is_numeric($Dyn_JobPos)): ?>
 <script type="text/javascript">
         $(document).ready(function(){
-                $.post('server/hooks/get-history-cronjob.php', {'JobPos':<?php print($_GET['JobPos']); ?>},
+                $.post('server/hooks/get-history-cronjob.php', {'JobPos':<?php print($Dyn_JobPos); ?>},
                         function(Data){
                                 if(!Data.Error){
                                         if(Data.NBContents != 0){

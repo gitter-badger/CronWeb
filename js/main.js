@@ -237,9 +237,13 @@ function GetAllCronjobs(){
 }
 
 function GetSettings(){
+	$('#ajax-indicator').show();
+	
 	$.getJSON('server/hooks/admin-get-settings.php', function(Data){
 		if(!Data.Error){
 			$('#active-refresh-time').val(Data.active_refresh_time);
+			
+			$('#ajax-indicator').hide();
 		}else{
 			alert('An error occurred while retrieving settings. Please check your database !');
 		}
@@ -292,4 +296,115 @@ function SaveSettings(ActiveRefreshTime){
         }
     });
 	$('#ajax-indicator').hide();
+}
+
+function GetScripts(){
+	$('#ajax-indicator').show();
+	
+	$.getJSON('server/hooks/admin-get-scripts.php', function(Data){
+		if(!Data.Error){
+			var Items = '';
+			if(Data.NBItems != 0){
+				$.each(Data.Items, function(Key, Val){
+					Items += '<tr>';
+					Items += '<td>' + Val.NAME + '</td>';
+					Items += '<td><i>' + Val.INFO + '</i></td>';
+
+					Items += '<td style="text-align:right"><div class="btn-group">';
+	
+					Items += '</div></td>';
+					Items += '</tr>';
+				});
+			}else{
+				Items += '<tr>';
+				Items += '<td colspan="3">No scripts on the server</td>';
+				Items += '</tr>';
+			}
+	
+			$('.scripts-list').html(Items);
+			$('#ajax-indicator').hide();
+		}else{
+			alert('An error occurred while retrieving scripts !');
+		}
+	});
+}
+
+function GetUsers(){
+	$('#ajax-indicator').show();
+	
+	$.getJSON('server/hooks/admin-get-users.php', function(Data){
+		if(!Data.Error){
+			var Items = '';
+			if(Data.NBItems != 0){
+				$.each(Data.Items, function(Key, Val){
+					Items += '<tr>';
+					Items += '<td>' + Val.USER_LOGIN + '</td>';
+					Items += '<td>' + Val.USER_NAME + '</td>';
+					
+					var LastModificationDate = new Date(Val.USER_MODIFICATION_DATE * 1000);
+					var LMDDate = LastModificationDate.getDate() > 9 ? LastModificationDate.getDate() : '0' + LastModificationDate.getDate();
+					var LMDMonth = LastModificationDate.getMonth() >= 9 ? (LastModificationDate.getMonth() + 1) : '0' + (LastModificationDate.getMonth() + 1);
+					Items += '<td>' + LMDMonth + '/' + LMDDate + '/' + LastModificationDate.getFullYear() + '</td>';
+					
+					Items += '<td>' + Val.ROLE_NAME + '</td>';
+					Items += '<td style="text-align:right"><div class="btn-group">';
+	
+					Items += '<a href="modals/edit-user.php@UserID=' + Val.USER_ID + '" data-toggle="modal" data-target="#EditModal" class="btn btn-primary btn-xs" data-placement="top" title="Edit User"><span class="glyphicon glyphicon-pencil"></a>';
+					Items += '<a href="modals/remove-user.php@UserID=' + Val.USER_ID + '" data-toggle="modal" data-target="#RemoveModal" class="btn btn-warning btn-xs" data-placement="top" title="Remove User"><span class="glyphicon glyphicon-remove"></a>';
+					
+					Items += '</div></td>';
+					Items += '</tr>';
+				});
+			}else{
+				Items += '<tr>';
+				Items += '<td colspan="3">No user in the database</td>';
+				Items += '</tr>';
+			}
+	
+			$('.users-list').html(Items);
+			$('.btn-primary, .btn-warning').tooltip();
+			$('body').on('hidden.bs.modal', '.modal', function(){
+				window.location.reload();
+			});
+
+			$('#ajax-indicator').hide();
+		}else{
+			alert('An error occurred while retrieving users !');
+		}
+	});
+}
+
+function GetUser(UserID){
+	$.ajax({
+        url: 'server/hooks/admin-get-user.php',
+        method: 'POST',
+		dataType: 'json',
+		data:{'UserID':UserID},
+        async: false,
+        cache: false,
+        timeout: 30000,
+        error: function(){
+            alert('An error occurred while retrieving user (' + UserID + ') !');
+        },
+        success: function(Data){
+            if(!Data.Error){
+				$('#username').val(Data.Item.USER_NAME);
+				$('#login').val(Data.Item.USER_LOGIN);
+				$('#role-select').val(Data.Item.USER_ROLE);
+			}else{
+				alert('An error occurred while retrieving user (' + UserID + ') !');
+			}
+        }
+    });
+}
+
+function GetRoles(){
+	$.getJSON('server/hooks/admin-get-roles.php', function(Data){
+		if(!Data.Error){
+			var Select = $("#role-select");
+			$.each(Data.Items, function(){
+				Select.append($("<option />").val(this.ROLE_ID).text(this.ROLE_NAME));
+			});
+		}
+	});
 }

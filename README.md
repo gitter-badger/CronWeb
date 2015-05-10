@@ -56,6 +56,8 @@ User settings could be found in the file <CronWeb Folder>/includes/system_settin
 	<CrontabBinary><![CDATA[/usr/bin/crontab]]></CrontabBinary>
 	<!-- The local user who executes scripts -->
 	<CrontabUser><![CDATA[scheduler]]></CrontabUser>
+	<!-- The local user home directory -->
+	<CrontabUserHomeDirectory><![CDATA[/home/scheduler]]></CrontabUserHomeDirectory>
 	<!-- This is needed to build the user crontab file -->
 	<TmpCrontabFile><![CDATA[/tmp/CronManager]]></TmpCrontabFile>
 </SystemSettings>

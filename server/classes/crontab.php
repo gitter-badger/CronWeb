@@ -1,61 +1,71 @@
 <?php
-
 class Crontab{
 	/**
-	 * Location of the crontab executable
-	 * @var string
+	 * $Crontab
+	 * @Desc : Location of the crontab executable
+	 * @Type : String
 	 */
 	var $Crontab = null;
 	
 	/**
-	 * Crontab user for the sudo command
-	 * @var string
+	 * $CrontabUser
+	 * @Desc : Crontab user for the sudo command
+	 * @Type : String
 	 */
 	var $CrontabUser = null;
 
 	/**
-	 * Location to save the crontab file.
-	 * @var string
+	 * $Destination
+	 * @Desc : Location to save the crontab file.
+	 * @Type : String
 	 */
 	var $Destination = null;
 	
 	/**
-	 * Minute (0 - 59)
-	 * @var string
+	 * $Minute
+	 * @Desc : Minute (0 - 59)
+	 * @Type : String
 	 */
 	var $Minute = '*';
 	
 	/**
-	 * Hour (0 - 23)
-	 * @var string
+	 * $Hour
+	 * @Desc : Hour (0 - 23)
+	 * @Type : String
 	 */
 	var $Hour = '*';
 	
 	/**
-	 * Day of Month (1 - 31)
-	 * @var string
+	 * $DayOfMonth
+	 * @Desc : Day of Month (1 - 31)
+	 * @Type : String
 	 */
 	var $DayOfMonth = '*';
 	
 	/**
-	 * Month (1 - 12) OR jan,feb,mar,apr...
-	 * @var string
+	 * $Month
+	 * @Desc : Month (1 - 12) OR jan,feb,mar,apr...
+	 * @Type : String
 	 */
 	var $Month = '*';
 	
 	/**
-	 * Day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
-	 * @var string
+	 * $DayOfWeek
+	 * @Desc : Day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+	 * @Type : String
 	 */
 	var $DayOfWeek = '*';
 	
 	/**
-	 * @var array
+	 * $Jobs
+	 * @Desc : Structure for cronjobs
+	 * @Type : Array
 	 */
-	var $Jobs = array();
+	var $Jobs = Array();
 	
 	/**
-	 * Constructor - Load system settings
+	 * Crontab (Constructor)
+	 * @Desc : Load system settings
 	 */
 	function Crontab(){
 		$XML = simplexml_load_file(dirname(__FILE__) . '/../../includes/system_settings.xml') or die('Error: Cannot create object');
@@ -64,65 +74,76 @@ class Crontab{
 		$this->Destination = $XML->TmpCrontabFile;
 	}
 	
+	/**
+	 * GetCrontabUser
+	 * @Desc : Retrieve crontab user
+	 * @Return : String
+	 */
 	function GetCrontabUser(){
 		return $this->CrontabUser;
 	}
 	
 	/**
-	* Set minute or minutes
-	* @param string $Minute required
-	* @return object
-	*/
+	 * OnMinute
+	 * @Desc : Set minute or minutes
+	 * @Parameter : String $Minute required
+	 * @Return : Object
+	 */
 	function OnMinute($Minute){
 		$this->Minute = $Minute;
 		return $this;
 	}
 	
 	/**
-	* Set hour or hours
-	* @param string $Hour required
-	* @return object
-	*/
+	 * OnHour
+	 * @Desc : Set hour or hours
+	 * @Parameter : String $Hour required
+	 * @Return : Object
+	 */
 	function OnHour($Hour){
 		$this->Hour = $Hour;
 		return $this;
 	}
 	
 	/**
-	* Set day of month or days of month
-	* @param string $DayOfMonth required
-	* @return object
-	*/
+	 * OnDayOfMonth
+	 * @Desc : Set day of month or days of month
+	 * @Parameter : String $DayOfMonth required
+	 * @Return : Object
+	 */
 	function OnDayOfMonth($DayOfMonth){
 		$this->DayOfMonth = $DayOfMonth;
 		return $this;
 	}
 	
 	/**
-	* Set month or months
-	* @param string $Month required
-	* @return object
-	*/
+	 * OnMonth
+	 * @Desc : Set month or months
+	 * @Parameter : String $Month required
+	 * @Return : Object
+	 */
 	function OnMonth($Month){
 		$this->Month = $Month;
 		return $this;
 	}
 	
 	/**
-	* Set day of week or days of week
-	* @param string $Minute required
-	* @return object
-	*/
+	 * OnDayOfWeek
+	 * @Desc : Set day of week or days of week
+	 * @Parameter : String $Minute required
+	 * @Return : Object
+	 */
 	function OnDayOfWeek($DayOfWeek){
 		$this->DayOfWeek = $DayOfWeek;
 		return $this;
 	}
 	
 	/**
-	* Set entire time code with one function. This has to be a complete entry. See http://en.wikipedia.org/wiki/Cron#crontab_syntax
-	* @param string $TimeCode required
-	* @return object
-	*/
+	 * On
+	 * @Desc : Set entire time code with one function. This has to be a complete entry. See http://en.wikipedia.org/wiki/Cron#crontab_syntax
+	 * @Parameter : String $TimeCode required
+	 * @Return : Object
+	 */
 	function On($TimeCode){
 		list(
 			$this->Minute, 
@@ -136,20 +157,22 @@ class Crontab{
 	}
 	
 	/**
-	* Add job to the jobs array. Each time segment should be set before calling this method. The job should include the absolute path to the commands being used.
-	* @param string $Job required
-	* @return object
-	*/
+	 * DoJob
+	 * @Desc : Add job to the jobs array. Each time segment should be set before calling this method. The job should include the absolute path to the commands being used.
+	 * @Parameter : String $Job required
+	 * @Return : Object
+	 */
 	function DoJob($Job){
 		$this->Jobs[] =	$this->Minute . ' ' . $this->Hour . ' ' . $this->DayOfMonth . ' ' . $this->Month . ' ' . $this->DayOfWeek . ' ' . $Job;
 		return $this;
 	}
 	
 	/**
-	* Save the jobs to disk, remove existing cron
-	* @param boolean $IncludeOldJobs optional
-	* @return boolean
-	*/
+	 * Activate
+	 * @Desc : Save the jobs to disk, remove existing cron
+	 * @Parameter : Boolean $IncludeOldJobs optional
+	 * @Return : Boolean
+	 */
 	function Activate($IncludeOldJobs = True){
 		$Contents = '';
 		
@@ -173,8 +196,10 @@ class Crontab{
 	}
 
 	/**
-	* Deletes all crontab entries.
-	*/
+	 * DeleteAllJobs
+	 * @Desc : Deletes all crontab entries.
+	 * @Return : Boolean
+	 */
 	function DeleteAllJobs(){
 		if(is_writable($this->Destination) || !file_exists($this->Destination)){
 			exec('sudo -u '.$this->CrontabUser.' '.$this->Crontab.' -r;');
@@ -186,8 +211,10 @@ class Crontab{
 	}
 
 	/**
-	* Deletes a specific crontab entry.
-	*/
+	 * DeleteJob
+	 * @Desc : Deletes a specific crontab entry.
+	 * @Return : Boolean
+	 */
 	function DeleteJob($ID){
 		$AllJobs = $this->ListJobs();
 		foreach($AllJobs as $Key => $Job){
@@ -215,8 +242,10 @@ class Crontab{
 	}
 
 	/**
-	* Retrieves a specific job
-	*/
+	 * GetJob
+	 * @Desc : Retrieves a specific job
+	 * @Return : Job
+	 */
 	function GetJob($ID){
 		$AllJobs = $this->ListJobs();
 		foreach($AllJobs as $Key => $Job){
@@ -224,12 +253,14 @@ class Crontab{
 				return $Job;
 			}
 		}
+		return null;
 	}
 	
 	/**
-	* List current crontab jobs
-	* @return string
-	*/
+	 * ListJobs
+	 * @Desc : List current crontab jobs
+	 * @Return : String
+	 */
 	function ListJobs(){
 		$Result = exec('sudo -u '.$this->CrontabUser.' '.$this->Crontab.' -l;', $Output, $RetVal);
 		return $Output;

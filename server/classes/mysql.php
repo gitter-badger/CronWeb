@@ -211,11 +211,122 @@ class MySQL{
 		return $Error;
 	}
 	
+	/**
+	 * CreateUser
+	 * @Desc : Create a new user if the user does not exist
+	 * @Parameter $Role : Role number
+	 * @Parameter $Username : Name of the user
+	 * @Parameter $Login : Login of the new user
+	 * @Parameter $Password : Password of the new user
+	 * @Return : Boolean
+	 */
+	public function CreateUser($Role, $Username, $Login, $Password){
+		foreach ($this->GetUsers() as $User){
+			if (strcmp($Login, $User['USER_LOGIN']) === 0){
+				return False;
+			}
+		}
+		
+		$Stmt = $this->DB->prepare('INSERT INTO USERS (USER_LOGIN, USER_NAME, USER_PASSWORD, USER_MODIFICATION_DATE, USER_ROLE) VALUES (?, ?, ?, ?, ?)');
+		$Stmt->execute(Array($Login, $Username, md5($Password), time(), $Role));
+
+		if($this->DB->lastInsertId() <= 0){
+			return True;
+		}
+		return False;
+	}
+	
+	/**
+	 * EditUser
+	 * @Desc : Edit a user if the user exists
+	 * @Parameter $Role : Role number
+	 * @Parameter $Username : Name of the user
+	 * @Parameter $Login : Login of the new user
+	 * @Parameter $Password : Password of the new user
+	 * @Return : Boolean
+	 */
+	public function EditUser($UserID, $Role, $Username, $Login, $Password){
+		$Found = False;
+		foreach ($this->GetUsers() as $User){
+			if ($UserID === $User['USER_ID']){
+				$Found = True;
+			}
+		}
+		
+		if (!$Found){
+			return False;
+		}
+		
+		if (strlen($Password) > 0){
+			$Stmt = $this->DB->prepare('UPDATE USERS SET USER_LOGIN = ?, USER_NAME = ?, USER_PASSWORD = ?, USER_MODIFICATION_DATE = ?, USER_ROLE = ? WHERE USER_ID = ?');
+			return !$Stmt->execute(Array($Login, $Username, md5($Password), time(), $Role, $UserID));
+		}else{
+			$Stmt = $this->DB->prepare('UPDATE USERS SET USER_LOGIN = ?, USER_NAME = ?, USER_MODIFICATION_DATE = ?, USER_ROLE = ? WHERE USER_ID = ?');
+			return !$Stmt->execute(Array($Login, $Username, time(), $Role, $UserID));
+		}
+	}
+	
+	/**
+	 * GetUsers
+	 * @Desc : Retrieves all users and role per user
+	 * @Return : Array
+	 */ 
+	public function GetUsers(){
+		$Stmt = $this->DB->query('SELECT USER_ID, USER_LOGIN, USER_NAME, USER_MODIFICATION_DATE, ROLE_NAME FROM USERS, ROLES WHERE USER_ROLE = ROLE_ID ORDER BY USER_ID');
+		return $Stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
+	/**
+	 * GetUser
+	 * @Desc : Retrieves user UserID
+	 * @Parameter $UserID : integer
+	 * @Return : Array
+	 */ 
+	public function GetUser($UserID){
+		$Stmt = $this->DB->prepare('SELECT USER_ID, USER_LOGIN, USER_NAME, USER_MODIFICATION_DATE, USER_ROLE FROM USERS WHERE USER_ID = ? LIMIT 1');
+		$Stmt->execute(Array($UserID));
+		return $Stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
+	/**
+	 * GetUserPassword
+	 * @Desc : Retrieves user login and password
+	 * @Return : Array
+	 */ 
+	public function GetUserPassword($Login){
+		$Stmt = $this->DB->prepare('SELECT USER_LOGIN, USER_PASSWORD FROM USERS WHERE USER_LOGIN = ? LIMIT 1');
+		$Stmt->execute(Array($Login));
+		return $Stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
+	/**
+	 * RemoveUser
+	 * @Desc : Remove the user $UserID
+	 * @Parameter $UserID : integer
+	 * @Return : Boolean
+	 */
+	public function RemoveUser($UserID){
+		$Stmt = $this->DB->prepare('DELETE FROM USERS WHERE USER_ID = ?');
+		if($Stmt->execute(Array($UserID))){
+			return True;
+		}
+		return False;
+	}
+	
+	/**
+	 * GetRoles
+	 * @Desc : Retrieves all roles
+	 * @Return : Array
+	 */
+	public function GetRoles(){
+		$Stmt = $this->DB->query('SELECT ROLE_ID, ROLE_NAME FROM ROLES ORDER BY ROLE_ID');
+		return $Stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
 	//============================================= PRIVATE METHODS =============================================//
 	/**
 	 * LoadMySQLSettings
 	 * @Desc : This private methods retrieves your own database settings in the /includes folder
-	 * @Return : nothing
 	 */
 	private function LoadMySQLSettings(){
 		$XML = simplexml_load_file(dirname(__FILE__) . '/../../includes/db_settings.xml') or die('Error: Cannot create object');

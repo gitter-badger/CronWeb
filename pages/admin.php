@@ -2,10 +2,10 @@
 	<h3>Admin<div id="ajax-indicator" class="pull-right"><img src="img/loader.gif" valign="middle" />&nbsp;Loading ...</div></h3>
 	<div role="tabpanel">
 		<ul class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-				<li role="presentation"><a href="#scripts" aria-controls="scripts" role="tab" data-toggle="tab">Scripts</a></li>
-				<!-- li role="presentation"><a href="#roles" aria-controls="roles" role="tab" data-toggle="tab">Roles</a></li -->
-				<li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
+			<li role="presentation" class="active"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+			<li role="presentation"><a href="#scripts" aria-controls="scripts" role="tab" data-toggle="tab">Scripts</a></li>
+			<!-- li role="presentation"><a href="#roles" aria-controls="roles" role="tab" data-toggle="tab">Roles</a></li -->
+			<li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
 		</ul>
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="settings">
@@ -34,22 +34,11 @@
 				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="scripts">
-				<div class="row">
-					<div class="pull-right">
-						<div class="col-md-6" style="padding-top:1em;padding-left:0;">
-							<a id="upl-btn-top" class="btn btn-large btn-info">Upload Script</a>
-						</div>
-					</div>
-				</div>
 				<table class="table table-striped">
 			        <thead>
 			            <tr>
-			                <th width="5%">Minute</th>
-			                <th width="5%">Hour</th>
-			                <th width="10%">Day of Month</th>
-			                <th width="5%">Month</th>
-			                <th width="10%">Day of Week</th>
-			                <th width="40%">Command</th>
+			                <th width="25%">Name</th>
+			                <th width="50%">Info</th>
 			                <th width="25%"></th>
 			            </tr>
 			        </thead>
@@ -60,21 +49,39 @@
 				<p>Under construction</p>
 			</div -->
 			<div role="tabpanel" class="tab-pane" id="users">
-				<p>Under construction</p>
+				<div class="row">
+					<div class="pull-right">
+						<div class="col-md-6" style="padding-top:1em;padding-left:0;">
+							<a href="modals/new-user.php" data-toggle="modal" data-target="#NewUserModal" class="btn btn-large btn-success">New User</a>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped">
+			        <thead>
+			            <tr>
+			                <th width="20%">Login</th>
+							<th width="20%">Name</th>
+			                <th width="20%">Modification</th>
+							<th width="20%">Role</th>
+			                <th width="20%"></th>
+			            </tr>
+			        </thead>
+			        <tbody class="users-list"></tbody>
+			    </table>
 			</div>
 		</div>
 	</div>
-	<div id="ConfirmModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="ConfirmModalModalLabel" aria-hidden="true">
+	<div id="NewUserModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="NewUserModalModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content"></div>
 		</div>
 	</div>
-	<div id="CmdDetailsModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="CmdDetailsModalModalLabel" aria-hidden="true">
+	<div id="EditModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="EditModalModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content"></div>
 		</div>
 	</div>
-	<div id="RemoveAllModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="RemoveAllModalModalLabel" aria-hidden="true">
+	<div id="RemoveModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="RemoveModalModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content"></div>
 		</div>
@@ -82,10 +89,26 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
-		GetSettings();
+		// Javascript to enable link to tab
+		var url = document.location.toString();
+		if (url.match('#')){
+    		$('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show');
+		}
+		// Change hash for page-reload
+		$('body').on('shown.bs.tab', 'a[data-toggle="tab"]', function(e){
+    		window.location.hash = e.target.hash;
+		});
 		
+		// Settings tab
+		GetSettings();
 		$('#save-btn-top, #save-btn-bot').bind('click', function(){
 			SaveSettings($('#active-refresh-time').val());
 		});
+		
+		// Scripts tab
+		GetScripts();
+		
+		// Users tab
+		GetUsers();
 	});
 </script>
