@@ -3,7 +3,7 @@
 	if(!isset($_POST['SettingKey']) || $_POST['SettingKey'] == '') $Error = True;
 	
 	if(!$Error) {
-            require_once('../classes/mysql.php');
+            require_once('server/classes/mysql.php');
 			$MySQL = new MySQL();
 			$Setting = $MySQL->GetSetting($_POST['SettingKey']);
 			if(count($Setting) == 1){

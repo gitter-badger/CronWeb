@@ -1,11 +1,11 @@
 <?php
         $Resp = Array();
 
-        require_once('../classes/mysql.php');
+        require_once('server/classes/mysql.php');
         $MySQL = new MySQL();
         $Resp['MySQL'] = $MySQL->DisableAllCronjobs();
 
-        require_once('../classes/crontab.php');
+        require_once('server/classes/crontab.php');
         $Cron = new Crontab();
         $Resp['Crontab'] = $Cron->DeleteAllJobs();
 

@@ -1,5 +1,5 @@
 <?php
-	require_once('../classes/filesystem.php');
+	require_once('server/classes/filesystem.php');
 
 	$FS = new FileSystem();
 

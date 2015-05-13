@@ -10,13 +10,13 @@
     if(!isset($_POST['DirectlyEnabled']) || $_POST['DirectlyEnabled'] == '') $Error = True;
 
 	if(!$Error){
-                require_once('../classes/mysql.php');
+                require_once('server/classes/mysql.php');
                 $MySQL = new MySQL();
                 $Result = Array('Inserted' => $MySQL->AddNewJob($_POST['Minute'], $_POST['Hour'], $_POST['DayMonth'], $_POST['Month'], $_POST['DayWeek'], $_POST['Name'], $_POST['Command'], $_POST['DirectlyEnabled']));
 
                 $Jobs = $MySQL->GetEnabledJobs();
 
-                require_once('../classes/crontab.php');
+                require_once('server/classes/crontab.php');
                 $Cron = new Crontab();
                 $Cron->DeleteAllJobs();
 

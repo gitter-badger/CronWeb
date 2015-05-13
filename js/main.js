@@ -357,7 +357,7 @@ function GetUsers(){
 				});
 			}else{
 				Items += '<tr>';
-				Items += '<td colspan="3">No user in the database</td>';
+				Items += '<td colspan="5">No user in the database</td>';
 				Items += '</tr>';
 			}
 	

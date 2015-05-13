@@ -1,5 +1,5 @@
 <?php
-        require_once('../classes/mysql.php');
+        require_once('server/classes/mysql.php');
         $MySQL = new MySQL();
         $Job = $MySQL->GetJob($_POST['JobID']);
         if(count($Job) == 0){
@@ -10,7 +10,7 @@
         }
         $Jobs = $MySQL->GetEnabledJobs();
 
-	require_once('../classes/crontab.php');
+	require_once('server/classes/crontab.php');
         $Cron = new Crontab();
         $Cron->DeleteAllJobs();
 

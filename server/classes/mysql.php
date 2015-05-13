@@ -294,7 +294,7 @@ class MySQL{
 	 * @Return : Array
 	 */ 
 	public function GetUserPassword($Login){
-		$Stmt = $this->DB->prepare('SELECT USER_LOGIN, USER_PASSWORD FROM USERS WHERE USER_LOGIN = ? LIMIT 1');
+		$Stmt = $this->DB->prepare('SELECT USER_NAME, USER_LOGIN, USER_PASSWORD FROM USERS WHERE USER_LOGIN = ? LIMIT 1');
 		$Stmt->execute(Array($Login));
 		return $Stmt->fetchAll(PDO::FETCH_ASSOC);
 	}

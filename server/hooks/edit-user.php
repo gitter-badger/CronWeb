@@ -16,7 +16,7 @@
     }
 
     if(!$Error) {
-        require_once('../classes/mysql.php');
+        require_once('server/classes/mysql.php');
         $MySQL = new MySQL();
 
         $Result = Array('Error' => $MySQL->EditUser($_POST['UserID'], $_POST['Role'], $_POST['Username'], $_POST['Login'], $_POST['Password']));

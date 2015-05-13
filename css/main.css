@@ -50,3 +50,8 @@ margin-top: 28px;
 }
 
 #ajax-indicator { display: none; font-size:10pt; }
+
+.nav > li.danger > a:hover, .nav > li.danger > a:focus {
+    background-color: #c12e2a;
+    color: #fff;
+}

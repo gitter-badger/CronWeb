@@ -1,5 +1,5 @@
 <?php
-	require_once('../classes/mysql.php');
+	require_once('server/classes/mysql.php');
 	$MySQL = new MySQL();
 	
 	if(isset($_POST['UserID']) && is_numeric($_POST['UserID'])){

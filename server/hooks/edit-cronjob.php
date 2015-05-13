@@ -10,7 +10,7 @@
         if(!isset($_POST['Command']) || $_POST['Command'] == '') $Error = True;
 
         if(!$Error) {
-                require_once('../classes/mysql.php');
+                require_once('server/classes/mysql.php');
                 $MySQL = new MySQL();
 
                 $Result = Array('Error' => !$MySQL->EditJob($_POST['JobID'], $_POST['Minute'], $_POST['Hour'], $_POST['DayMonth'], $_POST['Month'], $_POST['DayWeek'], $_POST['Name'], $_POST['Command']));

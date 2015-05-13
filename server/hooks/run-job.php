@@ -1,9 +1,9 @@
 <?php
-        require_once('../classes/mysql.php');
+        require_once('server/classes/mysql.php');
         $MySQL = new MySQL();
         $Enabled_BDD = $MySQL->GetEnabledJobs();
 
-        require_once('../classes/crontab.php');
+        require_once('server/classes/crontab.php');
         $Cron = new Crontab();
         $Enabled_Sys = $Cron->ListJobs();
 
