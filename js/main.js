@@ -109,7 +109,7 @@ function GetInstalledScripts(){
 		if(!Data.Error){
 			var Select = $("#add-scripts");
 			$.each(Data.Scripts, function(){
-				Select.append($("<option />").val(this.PathName).text(this.FileName));
+				Select.append($("<option />").val(this.PATH).text(this.NAME));
 			});
 		}
 	});
@@ -121,11 +121,9 @@ function GetActiveCronjobs(){
 		var Items = '';
 		if(Data.NBItems != 0){
 			$.each(Data.Items, function(Key, Val){
-				var Elt = Val[1].split(' ');
-
 				Items += '<tr>';
 				Command = '';
-				$.each(Elt, function(X, Y){
+				$.each(Val.Job, function(X, Y){
 					if(X < 5){
 						Items += '<td>' + Y + '</td>';
 					}else{
@@ -141,17 +139,17 @@ function GetActiveCronjobs(){
 				Items += '<td style="text-align:right">';
 							
 				var ISRUNNING = false;
-				if(Val[0] == 4){
+				if(Val.LastState == 4){
 					Items += '<span id="badge_' + Key + '" class="badge alert-info">RUNNING</span>&nbsp;';
 					ISRUNNING = true;
 				}else{
-					if(Val[0] == 0){
+					if(Val.LastState == 0){
 						Items += '<span id="badge_' + Key + '" class="badge alert-success">OK</span>&nbsp;';
 					}else{
-						if(Val[0] == 1){
+						if(Val.LastState == 1){
 							Items += '<span id="badge_' + Key + '" class="badge alert-warning">WARN</span>&nbsp;';
 						}else{
-							if(Val[0] == 2){
+							if(Val.LastState == 2){
 								Items += '<span id="badge_' + Key + '" class="badge alert-danger">CRIT</span>&nbsp;';
 							}else{
 								Items += '<span id="badge_' + Key + '" class="badge alert-info">UNKW</span>&nbsp;';

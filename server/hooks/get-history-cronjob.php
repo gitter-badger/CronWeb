@@ -1,4 +1,4 @@
-<?php
+<?php    
     require_once('server/classes/mysql.php');
     $MySQL = new MySQL();
     $Enabled_BDD = $MySQL->GetEnabledJobs();
@@ -18,23 +18,24 @@
         $JobSys[5] = $Tmp;
 
         if(count(array_diff($JobBDD, $JobSys)) == 0){
-            $Name = substr($Enabled_BDD[$_POST['JobPos']]['JOB_NAME'], 6);
+            $ScriptLogsDirname = substr($Enabled_BDD[$_POST['JobPos']]['JOB_CMD'], 0, strrpos($Enabled_BDD[$_POST['JobPos']]['JOB_CMD'], '/')) . '/Logs';
             try{
-                $Path = realpath('/home/scheduler/check_mk/'.$Name);
+                $Path = realpath($ScriptLogsDirname);
                 $Objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($Path, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST, RecursiveIteratorIterator::CATCH_GET_CHILD);
 
                 $Files = Array();
                 foreach($Objects as $Key => $Object){
                     $Files[$Key] = $Object->getPathName();
                 }
-                ksort($Files);
+                rsort($Files);
+
+                require_once('server/classes/filesystem.php');
+                $FS = new FileSystem();
 
                 $Contents = Array();
                 foreach($Files as $File){
                     if(!is_dir($File)){
-                        $Handle = fopen($File, 'r');
-                        $Contents[] = fgets($Handle);
-                        fclose($Handle);
+                        $Contents[] = $FS->TailCustom($File, 1);
                     };
                 }
                 print(json_encode(Array('Error' => False, 'NBContents' => count($Contents), 'Contents' => $Contents)));

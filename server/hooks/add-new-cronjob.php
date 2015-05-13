@@ -10,39 +10,39 @@
     if(!isset($_POST['DirectlyEnabled']) || $_POST['DirectlyEnabled'] == '') $Error = True;
 
 	if(!$Error){
-                require_once('server/classes/mysql.php');
-                $MySQL = new MySQL();
-                $Result = Array('Inserted' => $MySQL->AddNewJob($_POST['Minute'], $_POST['Hour'], $_POST['DayMonth'], $_POST['Month'], $_POST['DayWeek'], $_POST['Name'], $_POST['Command'], $_POST['DirectlyEnabled']));
+        require_once('server/classes/mysql.php');
+        $MySQL = new MySQL();
+        $Result = Array('Inserted' => $MySQL->AddNewJob($_POST['Minute'], $_POST['Hour'], $_POST['DayMonth'], $_POST['Month'], $_POST['DayWeek'], $_POST['Name'], $_POST['Command'], $_POST['DirectlyEnabled']));
 
-                $Jobs = $MySQL->GetEnabledJobs();
+        $Jobs = $MySQL->GetEnabledJobs();
 
-                require_once('server/classes/crontab.php');
-                $Cron = new Crontab();
-                $Cron->DeleteAllJobs();
+        require_once('server/classes/crontab.php');
+        $Cron = new Crontab();
+        $Cron->DeleteAllJobs();
 
-                $Error = False;
-                foreach($Jobs as $Job){
-                        $Cron = new Crontab();
-                        $Cron->OnMinute($Job['JOB_MIN']);
-                        $Cron->OnHour($Job['JOB_HOUR']);
-                        $Cron->OnDayOfMonth($Job['JOB_DOM']);
-                        $Cron->OnMonth($Job['JOB_MON']);
-                        $Cron->OnDayOfWeek($Job['JOB_DOW']);
-                        $Cron->DoJob($Job['JOB_CMD']);
+        $Error = False;
+        foreach($Jobs as $Job){
+            $Cron = new Crontab();
+            $Cron->OnMinute($Job['JOB_MIN']);
+            $Cron->OnHour($Job['JOB_HOUR']);
+            $Cron->OnDayOfMonth($Job['JOB_DOM']);
+            $Cron->OnMonth($Job['JOB_MON']);
+            $Cron->OnDayOfWeek($Job['JOB_DOW']);
+            $Cron->DoJob($Job['JOB_CMD']);
 
-                        if(!$Cron->Activate()){
-                                $Error = True;
-                        }
-                }
+            if(!$Cron->Activate()){
+                $Error = True;
+            }
+        }
 
-                if(!$Error){
-                        $Result = Array('Inserted' => True);
-                }else{
-                        $Result = Array('Inserted' => False);
-                }
+        if(!$Error){
+            $Result = Array('Inserted' => True);
+        }else{
+            $Result = Array('Inserted' => False);
+        }
 	} else {
 		$Result = Array('Inserted' => False);
 	}
 
-        print(json_encode($Result));
+    print(json_encode($Result));
 ?>
